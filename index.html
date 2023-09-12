@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Scrapping - Busca no ML</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  
+  <div class="container">
+    <h1>Web Scrapping Mercado Livre</h1>
+    <ul class="cards"></ul>
+  </div>
+  
+  <script>
+    (async () => {
+      // Abrir o arquivo de dados (JSON)
+      const response = await fetch('./list.json');
+      const data = await response.json();
+
+      // Formatar os dados
+      const htmlList = data
+        .map( ({ title, price, seller, link }) => `<li class="card"><h4>${title}</h4><p>R$ ${price}</p><span>${seller}</span><a href"${link}">Ir para o anúncio</a></li>`)
+        .join('');
+
+      // Inserie no HTML
+      document.querySelector('.container .cards').innerHTML = htmlList;
+    })();
+  </script>
+</body>
+</html>
